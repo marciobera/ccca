@@ -42,8 +42,7 @@ test("Sound not create a passanger if the name is invalid", async () => {
         cpf: "97456321558",
         isPassenger: true,
     }
-    const output = await signup(input);
-    expect(output).toBe(-3);
+    await expect(() => signup(input)).rejects.toThrow("Invalid name");
 })
 
 test("Sound not create a passanger if the email is invalid", async () => {
@@ -53,8 +52,7 @@ test("Sound not create a passanger if the email is invalid", async () => {
         cpf: "97456321558",
         isPassenger: true,
     }
-    const output = await signup(input);
-    expect(output).toBe(-2);
+    await expect(() => signup(input)).rejects.toThrow("Invalid email");
 })
 
 test("Sound not create a passanger if the cpf is invalid", async () => {
@@ -64,8 +62,7 @@ test("Sound not create a passanger if the cpf is invalid", async () => {
         cpf: "97456321559",
         isPassenger: true,
     }
-    const output = await signup(input);
-    expect(output).toBe(-1);
+    await expect(() => signup(input)).rejects.toThrow("Invalid CPF");
 })
 
 
@@ -77,8 +74,7 @@ test("Sound not create an account if the email already exists", async () => {
         isPassenger: true,
     }
     await signup(input);
-    const output = await signup(input);
-    expect(output).toBe(-4);
+    await expect(() => signup(input)).rejects.toThrow("Account already exists");
 })
 
 test("Sound not create a driver if the car plate is invalid", async () => {
@@ -89,6 +85,5 @@ test("Sound not create a driver if the car plate is invalid", async () => {
         isDriver: true,
         carPlate: "ABC123"
     }
-    const output = await signup(input);
-    expect(output).toBe(-5);
+    await expect(() => signup(input)).rejects.toThrow("Invalid car plate");
 })
