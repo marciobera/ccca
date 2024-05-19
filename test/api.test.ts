@@ -42,6 +42,7 @@ test("Should request a ride", async () => {
     const outputGetRide = responseGetRide.data;
     expect(responseRequestRide.status).toBe(200);
     expect(outputGetRide.passengerId).toBe(inputRequestRide.passengerId);
+    expect(outputGetRide.passengerName).toBe(inputSignup.name);
     expect(outputGetRide.rideId).toBe(outputRequestRide.rideId);
     expect(outputGetRide.fromLat).toBe(inputRequestRide.fromLat);
     expect(outputGetRide.status).toBe("requested");

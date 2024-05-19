@@ -6,7 +6,7 @@ export default class GetAccount {
 
     async execute(accountId: string) {
         const account = await this.accountRepository.getById(accountId);
-        if (!account) throw new Error("Account does not exist")
+        if (!account) throw new Error("Account does not exist");
         return account;
     }
 }
