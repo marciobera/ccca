@@ -12,3 +12,7 @@ export default class GetAccount {
         return account;
     }
 }
+
+export interface GetAccountDAO {
+    getById(accountId: string): Promise<any>;
+}
