@@ -1,6 +1,7 @@
 import AccountDAO, { AccountDAODatabase } from "./AccountDAO";
 
 export default class GetAccount {
+    // Port
     constructor(readonly accountDAO: AccountDAO) { }
 
     async execute(accountId: string) {
