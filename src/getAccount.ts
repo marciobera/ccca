@@ -1,6 +1,13 @@
-import AccountDAO from "./AccountDAO";
+import AccountDAO, { AccountDAODatabase } from "./AccountDAO";
 
-export async function getAccount(accountId: string): Promise<any> {
-    const accountDAO = new AccountDAO();
-    return await accountDAO.getById(accountId);
+export default class GetAccount {
+    constructor(readonly accountDAO: AccountDAO) { }
+
+    async execute(accountId: string) {
+        const account = await this.accountDAO.getById(accountId);
+        account.is_passenger = account.isPassenger;
+        account.is_driver = account.isDriver;
+        account.car_plate = account.carPlate;
+        return account;
+    }
 }
