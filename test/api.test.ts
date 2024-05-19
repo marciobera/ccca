@@ -16,7 +16,7 @@ test("Should create a passanger account", async () => {
     expect(outputGetAccount.name).toBe(input.name);
     expect(outputGetAccount.email).toBe(input.email);
     expect(outputGetAccount.cpf).toBe(input.cpf);
-    expect(outputGetAccount.is_passenger).toBe(input.isPassenger);
+    expect(outputGetAccount.isPassenger).toBe(input.isPassenger);
 });
 
 test("Should request a ride", async () => {
@@ -41,9 +41,9 @@ test("Should request a ride", async () => {
     const responseGetRide = await axios.get(`http://localhost:3000/rides/${outputRequestRide.rideId}`);
     const outputGetRide = responseGetRide.data;
     expect(responseRequestRide.status).toBe(200);
-    expect(outputGetRide.passenger_id).toBe(inputRequestRide.passengerId);
-    expect(outputGetRide.ride_id).toBe(outputRequestRide.rideId);
-    expect(outputGetRide.from_lat).toBe(inputRequestRide.fromLat.toString());
+    expect(outputGetRide.passengerId).toBe(inputRequestRide.passengerId);
+    expect(outputGetRide.rideId).toBe(outputRequestRide.rideId);
+    expect(outputGetRide.fromLat).toBe(inputRequestRide.fromLat);
     expect(outputGetRide.status).toBe("requested");
     expect(outputGetRide.date).toBeDefined();
 });

@@ -1,5 +1,5 @@
 import sinon from "sinon";
-import { AccountDAODatabase, AccountDAOMemory } from "../src/AccountDAO";
+import { AccountRepositoryDatabase, AccountRepositoryMemory } from "../src/AccountRepository";
 import GetAccount from "../src/GetAccount";
 import Signup from "../src/Signup";
 import MailerGateway from "../src/MailerGateway";
@@ -8,8 +8,8 @@ let signup: Signup;
 let getAccount: GetAccount;
 
 beforeEach(() => {
-    const accountDAO = new AccountDAODatabase();
-    // const accountDAO = new AccountDAOMemory();
+    // const accountDAO = new AccountDAODatabase();
+    const accountDAO = new AccountRepositoryMemory();
     const mailerGatway: MailerGateway = {
         async send(subject: string, recipient: string, message: string) { }
     }
@@ -30,7 +30,7 @@ test("Should create a passanger account", async () => {
     expect(outputGetAccount.name).toBe(input.name);
     expect(outputGetAccount.email).toBe(input.email);
     expect(outputGetAccount.cpf).toBe(input.cpf);
-    expect(outputGetAccount.is_passenger).toBe(input.isPassenger);
+    expect(outputGetAccount.isPassenger).toBe(input.isPassenger);
 })
 
 test("Should create a driver account", async () => {
@@ -47,8 +47,8 @@ test("Should create a driver account", async () => {
     expect(outputGetAccount.name).toBe(input.name);
     expect(outputGetAccount.email).toBe(input.email);
     expect(outputGetAccount.cpf).toBe(input.cpf);
-    expect(outputGetAccount.is_driver).toBe(input.isDriver);
-    expect(outputGetAccount.car_plate).toBe(input.carPlate);
+    expect(outputGetAccount.isDriver).toBe(input.isDriver);
+    expect(outputGetAccount.carPlate).toBe(input.carPlate);
 })
 
 test("Sound not create a passanger if the name is invalid", async () => {

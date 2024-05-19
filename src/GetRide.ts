@@ -1,10 +1,11 @@
-import RideDAO from "./RideDAO";
+import RideRepository from "./RideRepository";
 
 export default class GetRide {
-    constructor(readonly rideDAO: RideDAO) { }
+    constructor(readonly rideRepository: RideRepository) { }
 
     async execute(rideId: string): Promise<Output> {
-        const ride = await this.rideDAO.getById(rideId);
+        const ride = await this.rideRepository.getById(rideId);
+        if (!ride) throw new Error("Ride not found");
         return ride;
     }
 }

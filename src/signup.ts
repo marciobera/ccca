@@ -1,28 +1,22 @@
 import crypto from "crypto";
-import { validateCpf } from "./validateCpf";
 import MailerGateway from "./MailerGateway";
+import Account from "./Account";
+import AccountRepository from "./AccountRepository";
 
+// Use case
 export default class Signup {
     // Port
-    constructor(readonly accountDAO: SignupAccountDAO, readonly mailerGatway: MailerGateway) { }
+    constructor(readonly accountRepository: AccountRepository, readonly mailerGatway: MailerGateway) { }
 
     async execute(input: any) {
         input.accountId = crypto.randomUUID();
-        const existingAccount = await this.accountDAO.getByEmail(input.email);
+        const existingAccount = await this.accountRepository.getByEmail(input.email);
+        const account = Account.create(input.name, input.email, input.cpf, input.isPassenger, input.isDriver, input.carPlate);
         if (existingAccount) throw new Error("Account already exists");
-        if (!input.name.match(/[a-zA-Z] [a-zA-Z]+/)) throw new Error("Invalid name");
-        if (!input.email.match(/^(.+)@(.+)$/)) throw new Error("Invalid email");
-        if (!validateCpf(input.cpf)) throw new Error("Invalid CPF");
-        if (input.isDriver && !input.carPlate.match(/[A-Z]{3}[0-9]{4}/)) throw new Error("Invalid car plate");
-        await this.accountDAO.save(input);
-        await this.mailerGatway.send("Welcome", input.email, "User this link to confirm your account");
+        await this.accountRepository.save(account);
+        await this.mailerGatway.send("Welcome", account.email, "User this link to confirm your account");
         return {
-            accountId: input.accountId,
+            accountId: account.accountId,
         };
     }
-}
-
-export interface SignupAccountDAO {
-    save(account: any): Promise<void>;
-    getByEmail(email: string): Promise<any>;
 }
