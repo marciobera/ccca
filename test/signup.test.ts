@@ -3,13 +3,14 @@ import { AccountRepositoryDatabase, AccountRepositoryMemory } from "../src/Accou
 import GetAccount from "../src/GetAccount";
 import Signup from "../src/Signup";
 import MailerGateway from "../src/MailerGateway";
-import { PgPromiseAdapter } from "../src/DatabaseConnection";
+import DatabaseConnection, { PgPromiseAdapter } from "../src/DatabaseConnection";
 
+let connection: DatabaseConnection;
 let signup: Signup;
 let getAccount: GetAccount;
 
 beforeEach(() => {
-    const connection = new PgPromiseAdapter();
+    connection = new PgPromiseAdapter();
     const accountRepository = new AccountRepositoryDatabase(connection);
     // const accountRepository = new AccountRepositoryMemory();
     const mailerGatway: MailerGateway = {
@@ -174,3 +175,7 @@ test("Sound not create a driver if the car plate is invalid", async () => {
 //     mailerGatwayMock.verify();
 //     mailerGatwayMock.restore();
 // })
+
+afterEach(async () => {
+    await connection.close();
+})
