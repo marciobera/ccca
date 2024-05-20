@@ -1,5 +1,6 @@
-import Account from "./Account";
-import DatabaseConnection from "./DatabaseConnection";
+
+import Account from "../../domain/Account";
+import DatabaseConnection from "../database/DatabaseConnection";
 
 // Port
 export default interface AccountRepository {

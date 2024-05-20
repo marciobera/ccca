@@ -1,13 +1,13 @@
-import Signup from "./Signup";
-import { AccountRepositoryDatabase } from "./AccountRepository";
-import RequestRide from "./RequestRide";
-import { RideRepositoryDatabase } from "./RideRepository";
-import { MailerGatewayConsole } from "./MailerGateway";
-import GetRide from "./GetRide";
-import GetAccount from "./GetAccount";
-import { PgPromiseAdapter } from "./DatabaseConnection";
-import { ExpressAdapter } from "./HttpServer";
-import MainController from "./MainController";
+import Signup from "./application/usecase/Signup";
+import { AccountRepositoryDatabase } from "./infra/repository/AccountRepository";
+import RequestRide from "./application/usecase/RequestRide";
+import { RideRepositoryDatabase } from "./infra/repository/RideRepository";
+import { MailerGatewayConsole } from "./infra/gateway/MailerGateway";
+import GetRide from "./application/usecase/GetRide";
+import GetAccount from "./application/usecase/GetAccount";
+import { PgPromiseAdapter } from "./infra/database/DatabaseConnection";
+import { ExpressAdapter } from "./infra/http/HttpServer";
+import MainController from "./infra/http/MainController";
 
 const httpServer = new ExpressAdapter();
 const connection = new PgPromiseAdapter();

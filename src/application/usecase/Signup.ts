@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import MailerGateway from "./MailerGateway";
-import Account from "./Account";
-import AccountRepository from "./AccountRepository";
+import MailerGateway from "../../infra/gateway/MailerGateway";
+import AccountRepository from "../../infra/repository/AccountRepository";
+import Account from "../../domain/Account";
 
 // Use case
 export default class Signup {

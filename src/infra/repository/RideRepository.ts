@@ -1,5 +1,5 @@
-import Ride from "./Ride";
-import DatabaseConnection from "./DatabaseConnection";
+import Ride from "../../domain/Ride";
+import DatabaseConnection from "../database/DatabaseConnection";
 
 // Port
 export default interface RideRepository {

@@ -1,5 +1,6 @@
 import pgp from "pg-promise";
 
+// Framework & Drivers
 export default interface DatabaseConnection {
     query (statement: string, params: any[]): Promise<any>;
     close (): Promise<any>;

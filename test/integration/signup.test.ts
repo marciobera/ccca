@@ -1,9 +1,10 @@
 import sinon from "sinon";
-import { AccountRepositoryDatabase, AccountRepositoryMemory } from "../src/AccountRepository";
-import GetAccount from "../src/GetAccount";
-import Signup from "../src/Signup";
-import MailerGateway from "../src/MailerGateway";
-import DatabaseConnection, { PgPromiseAdapter } from "../src/DatabaseConnection";
+
+import GetAccount from "../../src/application/usecase/GetAccount";
+import Signup from "../../src/application/usecase/Signup";
+import MailerGateway from "../../src/infra/gateway/MailerGateway";
+import DatabaseConnection, { PgPromiseAdapter } from "../../src/infra/database/DatabaseConnection";
+import { AccountRepositoryDatabase } from "../../src/infra/repository/AccountRepository";
 
 let connection: DatabaseConnection;
 let signup: Signup;
