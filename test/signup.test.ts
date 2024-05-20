@@ -3,18 +3,20 @@ import { AccountRepositoryDatabase, AccountRepositoryMemory } from "../src/Accou
 import GetAccount from "../src/GetAccount";
 import Signup from "../src/Signup";
 import MailerGateway from "../src/MailerGateway";
+import { PgPromiseAdapter } from "../src/DatabaseConnection";
 
 let signup: Signup;
 let getAccount: GetAccount;
 
 beforeEach(() => {
-    // const accountDAO = new AccountDAODatabase();
-    const accountDAO = new AccountRepositoryMemory();
+    const connection = new PgPromiseAdapter();
+    const accountRepository = new AccountRepositoryDatabase(connection);
+    // const accountRepository = new AccountRepositoryMemory();
     const mailerGatway: MailerGateway = {
         async send(subject: string, recipient: string, message: string) { }
     }
-    signup = new Signup(accountDAO, mailerGatway);
-    getAccount = new GetAccount(accountDAO);
+    signup = new Signup(accountRepository, mailerGatway);
+    getAccount = new GetAccount(accountRepository);
 })
 
 test("Should create a passanger account", async () => {
@@ -112,9 +114,9 @@ test("Sound not create a driver if the car plate is invalid", async () => {
 //         isPassenger: true,
 //     }
 
-//     const saveStub = sinon.stub(AccountDAODatabase.prototype, "save").resolves();
-//     const getByEmailStub = sinon.stub(AccountDAODatabase.prototype, "getByEmail").resolves();
-//     const getByIdStub = sinon.stub(AccountDAODatabase.prototype, "getById").resolves(input);
+//     const saveStub = sinon.stub(AccountRepositoryDatabase.prototype, "save").resolves();
+//     const getByEmailStub = sinon.stub(AccountRepositoryDatabase.prototype, "getByEmail").resolves();
+//     const getByIdStub = sinon.stub(AccountRepositoryDatabase.prototype, "getById").resolves(input);
 
 //     const outputSignup = await signup.execute(input);
 //     expect(outputSignup.accountId).toBeDefined();
@@ -135,7 +137,7 @@ test("Sound not create a driver if the car plate is invalid", async () => {
 //         isPassenger: true,
 //     }
 
-//     const saveSpy = sinon.spy(AccountDAODatabase.prototype, "save");
+//     const saveSpy = sinon.spy(AccountRepositoryDatabase.prototype, "save");
 //     const sendSpy = sinon.spy(MailerGateway.prototype, "send");
 
 //     const outputSignup = await signup.execute(input);
